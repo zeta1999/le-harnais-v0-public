@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="lh-grad-a" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#60a5fa"/>
+      <stop offset="100%" stop-color="#a78bfa"/>
+    </linearGradient>
+    <linearGradient id="lh-grad-b" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Dark circle -->
+  <circle cx="100" cy="100" r="96" fill="#0d1b2a"/>
+
+  <!-- Harness: a central hub yoking peripheral nodes (local model + logic backends) -->
+  <g stroke="#e5e7eb" stroke-width="3" opacity="0.55" stroke-linecap="round">
+    <line x1="100" y1="100" x2="58"  y2="58"/>
+    <line x1="100" y1="100" x2="150" y2="56"/>
+    <line x1="100" y1="100" x2="46"  y2="122"/>
+    <line x1="100" y1="100" x2="150" y2="138"/>
+  </g>
+
+  <!-- Peripheral nodes -->
+  <circle cx="58"  cy="58"  r="14" fill="url(#lh-grad-a)"/>
+  <circle cx="150" cy="56"  r="12" fill="url(#lh-grad-a)" opacity="0.85"/>
+  <circle cx="46"  cy="122" r="12" fill="url(#lh-grad-b)" opacity="0.9"/>
+  <circle cx="150" cy="138" r="12" fill="url(#lh-grad-b)" opacity="0.75"/>
+
+  <!-- Central hub (the harness) -->
+  <circle cx="100" cy="100" r="20" fill="#0d1b2a" stroke="url(#lh-grad-a)" stroke-width="4"/>
+  <circle cx="100" cy="100" r="7"  fill="url(#lh-grad-a)"/>
+
+  <!-- Verify check — generate → verify → repair -->
+  <path d="M 132 150 L 142 160 L 164 132"
+        fill="none" stroke="#72efdd" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

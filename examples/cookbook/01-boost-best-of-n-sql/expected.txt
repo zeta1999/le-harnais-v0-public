@@ -1,0 +1,15 @@
+# Regime sweep (tools/boost_sweep.sh), generator gemma4:12b, spider exec-match, 10 queries.
+
+## EASY head (default):
+queries=10 | greedy(n=1) pass=9/10 | best-of-5 pass=9/10
+BOOSTING HELPED (greedy fail -> n=5 win) on 0 queries
+attempt-of-win distribution (n=5): {1: 9}   # every win at attempt 1 => best-of-N ~= 1x cost
+# greedy is already reliable on easy queries; the verifier just confirms it. No lift here.
+# (gemma4:e4b gives the identical 9/10 — these head queries are simple counts/joins.)
+
+## HARD (BOOST_HARD=1: set-difference/EXCEPT/nested):
+# greedy unreliable -> the unreliable-but-covers band where best-of-N lifts fail->pass.
+# Run it when the GPU is free:  NQ=10 BOOST_MODEL=gemma4:12b BOOST_HARD=1 bash tools/boost_sweep.sh
+
+## Lesson: best-of-N pays off in the unreliable-but-covers band, not on easy (greedy already
+## passes) nor impossible (no sample passes) queries. Escalation (cookbook 02) is the robust win.

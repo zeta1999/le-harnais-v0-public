@@ -1,0 +1,87 @@
+{
+  "name": "le-harnais distribution",
+  "components": {
+    "tiers": {
+      "A_portable_core": "the `lh` binary (default-members, no candle/CUDA). Cross-compiles to every target; covers the whole mission (inference delegated to ollama/openai-compat). Build: dist/build-matrix.sh",
+      "B_native_serve": "the OPTIONAL `lh-serve` candle server. Built natively per target (never cross-compiled). Optional: ollama is the recommended, faster generation path."
+    },
+    "logic_backend_capability": {
+      "note": "Uniform by construction across ALL targets. sql=bundled sqlite (pure Rust, travels with the binary); prolog=scryer (bundled, pure Rust); clingo/z3/lean SHELL OUT (no C-linking) so they are RUNTIME PATH deps.",
+      "bundled": ["sql", "prolog"],
+      "requires_on_path": ["z3", "clingo", "lean/lake"],
+      "inference": "ollama or an openai-compat endpoint on the target"
+    },
+    "binaries": {
+      "lh-linux-x86_64": {
+        "sha256": "373625560d6aa6e45249881edbc528ab774e1f64bc24260f6c039851187eac10",
+        "tier": "A", "platform": "linux-x86_64", "cuda": false,
+        "standalone": "verified — links only libc/libm/libgcc_s; runs `--version` and bundled prolog/sql verify outside the repo with no model",
+        "build": "cargo build --release (native on this host)"
+      },
+      "lh-linux-arm64": {
+        "sha256": "7b43af3641386fda1054e8ac2cf7885ce9afe346cca359d0993871f28517df29",
+        "tier": "A", "platform": "linux-arm64", "cuda": false,
+        "note": "cross-built (aarch64-unknown-linux-gnu via `cross`, rootless flag). Verified ELF aarch64. This is ALSO the DGX Spark core binary.",
+        "build": "dist/build-matrix.sh arm64"
+      },
+      "lh-macos-arm64": {
+        "sha256": null,
+        "tier": "A", "platform": "macos-arm64",
+        "note": "build on a Mac via build-macos.sh (cannot cross-build from Linux)"
+      },
+      "lh-serve-linux-x86_64-cuda": {
+        "sha256": "4e8b336b2cb3454387eaecfb0f86c85e4cabb957cb48c200271d729bbbb54033",
+        "tier": "B", "platform": "linux-x86_64", "cuda": true,
+        "build": "cargo build -p lh-serve --features cuda (CUDA_COMPUTE_CAP=120)"
+      },
+      "lh-serve-dgx-spark-cuda": {
+        "sha256": null,
+        "tier": "B", "platform": "linux-arm64", "cuda": true,
+        "note": "build ON the Spark (Blackwell GB10, sm_121); cross-compiling CUDA for arm64 is impractical"
+      },
+      "lh-serve-macos-arm64-metal": {
+        "sha256": null,
+        "tier": "B", "platform": "macos-arm64", "metal": true,
+        "note": "build on the Mac: cargo build -p lh-serve --features metal"
+      }
+    },
+    "models": {
+      "manifest": "models/MANIFEST.json",
+      "count": 18,
+      "public": 4,
+      "delivery": "Hugging Face Hub (renaudb1999/le-harnais-*); fetch with models/fetch_models.sh"
+    },
+    "docs": [
+      "docs/REPRODUCE.md",
+      "docs/PROVENANCE.md"
+    ],
+    "examples": "examples/cookbook (repo-coupled) + examples/run_smoke.sh (dist artifacts)",
+    "tools": {
+      "readme": "tools/README.md",
+      "note": "Bundled companion BINARIES (linux-x86_64) + agent skills; each binary dir has build.sh for macOS arm64 / linux arm64.",
+      "entries": {
+        "aria": {"form": "rust binary", "binary": "tools/aria/aria-linux-x86_64", "drives": "lh `aria` tool + docs/quantum", "runtime": "none (pure Rust)"},
+        "leanlift": {"form": "rust binary", "binary": "tools/leanlift/lift-linux-x86_64", "skills": "tools/leanlift/SKILL.md", "runtime": "Lean 4 toolchain (elan/lake)"},
+        "appsec": {"form": "go binary (CGO/DuckDB)", "binary": "tools/appsec/appsec-linux-x86_64", "skills": "tools/appsec/skills/*.md", "runtime": "Docker + scanners in tools/appsec/tools.lock"},
+        "lean4-skills": {"form": "skill pack (no binary)", "skills": "tools/lean4-skills/{commands,agents,skills}/*.md", "runtime": "Lean 4 toolchain + upstream python engine"}
+      }
+    },
+    "datasets": {
+      "backup": "datasets/datasets-v1-2026-07-18.tar.gz",
+      "manifest": "datasets/MANIFEST.json",
+      "note": "Versioned, checksummed backup of the gitignored datasets/*.jsonl (17 files, 5712 rows). Restore: tar xzf ... -C datasets/."
+    },
+    "env": {
+      "check": "check-env.sh (--json) \u2014 REQUIRED/LOGIC/TOOLS doctor; exit code = missing required count",
+      "install_ollama": "install-ollama.sh [--pull MODEL] \u2014 install the generation backend per-OS",
+      "skill": ".claude/skills/dist-doctor/SKILL.md \u2014 agent entry point for the two scripts"
+    }
+  },
+  "notes": [
+    "Weights are NOT in the tarball \u2014 they live in per-model HF repos.",
+    "HF upload needs a WRITE token (cached token is read-only): models/upload_to_hf.py.",
+    "macOS arm64 binary is built on the user's Mac (build-macos.sh); lh needs only Rust to build.",
+    "Companion tool binaries are linux-x86_64; rebuild per-platform via tools/<tool>/build.sh.",
+    "datasets/*.jsonl are gitignored \u2014 dist/datasets/ is their versioned backup."
+  ]
+}

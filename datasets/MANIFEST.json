@@ -1,0 +1,25 @@
+{
+  "version": "v1-2026-07-18",
+  "created": "2026-07-18",
+  "source": "datasets/ (jsonl are gitignored; this is the versioned backup)",
+  "git_commit": "0d7672118df860b6e38ff0e0e923f90ba9975b5d",
+  "files": [
+    {"file": "agentworld_distill_eval.jsonl", "sha256": "7c3640ae8264a33ac1c13432faeb8d2519702d8acda23c7eacb5ec633bab5817", "rows": 40, "bytes": 31387},
+    {"file": "agentworld_distill_train.jsonl", "sha256": "62a4b5b403a84934bf89a99c92f07351dd208d674cdcb32a2758d284d5b910f0", "rows": 160, "bytes": 123443},
+    {"file": "commentary_test.jsonl", "sha256": "80a8edb4a0a28a0d71d3181af0a5e8e52eb1bfd6c43269372690074d59a2437e", "rows": 12, "bytes": 20655},
+    {"file": "commentary_train.jsonl", "sha256": "5e70b0216fb67f2e1d8205c77979142042c244a20ab76cf578ca71a901ff49d6", "rows": 108, "bytes": 191951},
+    {"file": "counsel_dom2_train.jsonl", "sha256": "bcc3e15da9083f1a46d1fc9646777e988499aa8c35886092ab8fd071a1e17125", "rows": 970, "bytes": 941208},
+    {"file": "counsel_dom_train.jsonl", "sha256": "207193636c3ace2dc39185a752f6da2e41df4e3224c982cc604175cb90bee066", "rows": 570, "bytes": 589436},
+    {"file": "counsel_plus_train.jsonl", "sha256": "6aaa28db1aa03793a6b94564563f077374b76b71626d89f4869ad1b82599a314", "rows": 620, "bytes": 635857},
+    {"file": "counsel_test.jsonl", "sha256": "70be53e520836cc9d67fab165831c26675ffd0527fe5d9a5b4a47b83fa73bafc", "rows": 30, "bytes": 34945},
+    {"file": "counsel_train.jsonl", "sha256": "2f65ebf5f19ed9ca9bd5b954812a67b567c60142f3a6ffb2ca2702f59a612640", "rows": 270, "bytes": 333762},
+    {"file": "ornith_scaffold_eval.jsonl", "sha256": "510d6d2baff5e95a8e04c0f90717194d86bbeb9eb9eefde45a4fe06d3e1a754a", "rows": 38, "bytes": 49373},
+    {"file": "ornith_scaffold_train.jsonl", "sha256": "eeeed27607693b66ddda2289bcaebda3100ae8c4f9b79ec90484daa3c6603fd3", "rows": 153, "bytes": 192524},
+    {"file": "rust_test.jsonl", "sha256": "43270d876829e748e7eb2a987838c72b0f700de063273fc3289254bde653d710", "rows": 255, "bytes": 193268},
+    {"file": "rust_train.jsonl", "sha256": "55abb066e870de37fddf7ec1fae9c366d07ffd80aed9851f6af554edd475b871", "rows": 2301, "bytes": 1745802},
+    {"file": "tool_reasoning_tasks.jsonl", "sha256": "fe7087e9571203b8812a863e360758ccf5ca0148c7b8b054a010ea3e4264f956", "rows": 5, "bytes": 1540},
+    {"file": "wisdom_test.jsonl", "sha256": "4a1546c90b1c9998ec3b99f702cb7aecda6bd4a8d3a337434a59df447e0d119e", "rows": 18, "bytes": 14290},
+    {"file": "wisdom_train.jsonl", "sha256": "1322dbd2cfda1cd52bed15aec3673fca8b81c4a163b2418bc29937e941aa37a9", "rows": 162, "bytes": 141811},
+    {"file": "scaffold_ab_tasks.json", "sha256": "5f12907400540890f02d3189e819895923230853b980b502ad57ab22b2c653e9", "rows": null, "bytes": 871}
+  ]
+}

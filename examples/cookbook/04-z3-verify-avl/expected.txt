@@ -1,0 +1,14 @@
+RR single-left  (expect unsat):
+unsat
+LL single-right (expect unsat):
+unsat
+LR double        (expect unsat):
+unsat
+RL double        (expect unsat):
+unsat
+RR missing-precond (expect SAT + counterexample heights):
+sat
+((a 2)
+ (b 0)
+ (c 3))
+

@@ -1,0 +1,373 @@
+{
+  "hf_user": "renaudb1999",
+  "models": {
+    "ft-agentworld-1b": {
+      "repo_id": "renaudb1999/le-harnais-ft-agentworld-1b",
+      "base": "meta-llama/Llama-3.2-1B-Instruct",
+      "class": "hero",
+      "visibility": "public",
+      "retrain_only": false,
+      "dataset": "datasets/agentworld_distill_train.jsonl (160 ex; teacher=Qwen-AgentWorld-35B-A3B)",
+      "metric": "token-F1 0.826 / OBSERVATION hit-rate 60% vs teacher (n=40)",
+      "reproduce": "BASE=meta-llama/Llama-3.2-1B-Instruct OUT=refs/llm-jepa/ft-agentworld-1b tools/distill_agentworld.sh",
+      "safetensors": {
+        "model.safetensors": "20472b562986e67242aa33d177bccdcf543d00b3237d7e7ac38c8a6c6db2588d"
+      },
+      "gguf": {
+        "ft-agentworld-1b.Q4_K_M.gguf": "af4e9c4e40185e36d6c82086508030f9dc6fd881b8130e83241f270c0c872d30",
+        "ft-agentworld-1b.Q8_0.gguf": "b0be146e0bf777eac500e10343f3f165708cca06e685f1c0c1524b41d9379662"
+      },
+      "local_safetensors": "dist/_staging/ft-agentworld-1b",
+      "local_gguf": "dist/_gguf/ft-agentworld-1b"
+    },
+    "ft-agentworld-3b": {
+      "repo_id": "renaudb1999/le-harnais-ft-agentworld-3b",
+      "base": "meta-llama/Llama-3.2-3B-Instruct",
+      "class": "hero",
+      "visibility": "public",
+      "retrain_only": false,
+      "dataset": "datasets/agentworld_distill_train.jsonl (160 ex; teacher=Qwen-AgentWorld-35B-A3B)",
+      "metric": "token-F1 0.868 / OBSERVATION hit-rate 75% vs teacher (n=40)",
+      "reproduce": "BASE=meta-llama/Llama-3.2-3B-Instruct OUT=refs/llm-jepa/ft-agentworld-3b tools/distill_agentworld.sh",
+      "safetensors": {
+        "model-00001-of-00002.safetensors": "b512762132e2a54309567f66849157ea4acca414a88a32cc3c2f5e8994bab499",
+        "model-00002-of-00002.safetensors": "00ed2530c6bffff91121483f7c2d51f78bc3f249256cbe92a279c6357c3d19a4"
+      },
+      "gguf": {
+        "ft-agentworld-3b.Q4_K_M.gguf": "5f65a2a0fcab806e1fe8ecfcb36347cd1d05c3d74d6356d6f729c69dee217c7e",
+        "ft-agentworld-3b.Q8_0.gguf": "78c71fde52299ccd24c46849c78400d293d3e1b1e7694e442916b5298d6ab481"
+      },
+      "local_safetensors": "dist/_staging/ft-agentworld-3b",
+      "local_gguf": "dist/_gguf/ft-agentworld-3b"
+    },
+    "ft-agentworld-8b": {
+      "repo_id": "renaudb1999/le-harnais-ft-agentworld-8b",
+      "base": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+      "class": "hero",
+      "visibility": "public",
+      "retrain_only": false,
+      "dataset": "datasets/agentworld_distill_train.jsonl (160 ex; teacher=Qwen-AgentWorld-35B-A3B)",
+      "metric": "token-F1 0.958 / OBSERVATION hit-rate 95% vs teacher (n=40) \u2014 near teacher-quality at ~16GB",
+      "reproduce": "BASE=meta-llama/Meta-Llama-3.1-8B-Instruct OUT=refs/llm-jepa/ft-agentworld-8b tools/distill_agentworld.sh",
+      "safetensors": {
+        "model-00001-of-00004.safetensors": "67563b3453a25d34195b9aaa0c3f759263f15db73d881e1772aaee7b469d5ece",
+        "model-00002-of-00004.safetensors": "203d2b8024221cd0ef0164580206211a779371930d344f43075fcd562546f4b0",
+        "model-00003-of-00004.safetensors": "74af6a04fb1bee97cb2a01680ac3ee656b6fa0b6ae90e0b563c1d2d624ae1384",
+        "model-00004-of-00004.safetensors": "824106bf191a09cccab2acb7fbb5d119515ab9eff7ca40839440d8e7689d7008"
+      },
+      "gguf": {
+        "ft-agentworld-8b.Q4_K_M.gguf": "a42901c98910152b4c2096d06baee2fd24a2d74ec862eb073c6264bf4ad4e268",
+        "ft-agentworld-8b.Q8_0.gguf": "adca6d98828603e333cbccc5820fdedaf5e11a3f440fd3bf4221ecf5c36b7d38"
+      },
+      "local_safetensors": "dist/_staging/ft-agentworld-8b",
+      "local_gguf": "dist/_gguf/ft-agentworld-8b"
+    },
+    "ft-counsel": {
+      "repo_id": "renaudb1999/le-harnais-ft-counsel",
+      "base": "meta-llama/Llama-3.2-1B-Instruct",
+      "class": "hero",
+      "visibility": "public",
+      "retrain_only": false,
+      "dataset": "datasets/counsel_train.jsonl (270 ex; wisdom+commentary, PD sources)",
+      "metric": "served 1B; generate\u2192retrieve\u2192judge\u2192repair couple-advice game",
+      "reproduce": "just train-counsel",
+      "safetensors": {
+        "model.safetensors": "42f301349f652842392e4352d3c368e9bc1be90725558fb3a8bb16f62a9ab3c0"
+      },
+      "gguf": {
+        "ft-counsel.Q4_K_M.gguf": "79dc540b9e4ee9f29b6870a53fa61d1cb1fc16e5ec406ac9931b91805f110825",
+        "ft-counsel.Q8_0.gguf": "db9d636f2440a7dac8506f497b070c7d408504fde8ada81e2c66dfc4cc6de964"
+      },
+      "local_safetensors": "dist/_staging/ft-counsel",
+      "local_gguf": "dist/_gguf/ft-counsel"
+    },
+    "ft-ornith-scaffold-3b": {
+      "repo_id": "renaudb1999/le-harnais-ft-ornith-scaffold-3b",
+      "base": "meta-llama/Llama-3.2-3B-Instruct",
+      "class": "hero",
+      "visibility": "public",
+      "retrain_only": false,
+      "dataset": "datasets/ornith_scaffold_train.jsonl (153 ex; teacher=ornith:35b self-scaffolds)",
+      "metric": "held-out n=38: token-F1 0.295 (base 0.170, +0.125) / structure 0.731 (base 0.577, +0.153)",
+      "reproduce": "BASE=meta-llama/Llama-3.2-3B-Instruct OUT=refs/llm-jepa/ft-ornith-scaffold-3b tools/distill_ornith_scaffold.sh",
+      "safetensors": {
+        "model-00001-of-00002.safetensors": "69e177bb7ac13b4cdfea6e0efcfddeda393c199cb602f6ad40994cdada160cf7",
+        "model-00002-of-00002.safetensors": "a33ddd353fd5e9bc3421d01af7369d691122502006937e45a0fe96d22480eeab"
+      },
+      "gguf": {},
+      "local_safetensors": "dist/_staging/ft-ornith-scaffold-3b",
+      "local_gguf": "dist/_gguf/ft-ornith-scaffold-3b"
+    },
+    "ft-counsel-Llama-3.2-3B-Instruct-regular-full": {
+      "repo_id": "renaudb1999/le-harnais-ft-counsel-Llama-3.2-3B-Instruct-regular-full",
+      "base": "meta-llama/Llama-3.2-3B-Instruct",
+      "class": "ablation",
+      "visibility": "public",
+      "retrain_only": true,
+      "dataset": "datasets/counsel_train.jsonl (270 ex; wisdom+commentary, PD sources)",
+      "metric": "counsel-corpus scaling \u00d7 augmentation \u00d7 JEPA ablation (see docs/jepa.md)",
+      "reproduce": "see docs/jepa.md (counsel scaling grid)",
+      "safetensors": {
+        "model-00001-of-00002.safetensors": "c49b706ee68e800ce5195ebd54896003bad30ce7f67bebb28d65f8bd3f4392cf",
+        "model-00002-of-00002.safetensors": "0ea2e0d6ce1bd5cfdf4e68bf015f11e6cd21a211a8a05a479fae91bc50d457f2"
+      },
+      "gguf": {
+        "ft-counsel-Llama-3.2-3B-Instruct-regular-full.Q4_K_M.gguf": "96e82a2da83da880517014f0c4d540b947a895e05067b8b621e183951c08ef3c"
+      },
+      "local_safetensors": "dist/_staging/ft-counsel-Llama-3.2-3B-Instruct-regular-full",
+      "local_gguf": "dist/_gguf/ft-counsel-Llama-3.2-3B-Instruct-regular-full"
+    },
+    "ft-counsel-Llama-3.2-3B-Instruct-jepa-full": {
+      "repo_id": "renaudb1999/le-harnais-ft-counsel-Llama-3.2-3B-Instruct-jepa-full",
+      "base": "meta-llama/Llama-3.2-3B-Instruct",
+      "class": "ablation",
+      "visibility": "public",
+      "retrain_only": true,
+      "dataset": "datasets/counsel_train.jsonl (270 ex; wisdom+commentary, PD sources)",
+      "metric": "counsel-corpus scaling \u00d7 augmentation \u00d7 JEPA ablation (see docs/jepa.md)",
+      "reproduce": "see docs/jepa.md (counsel scaling grid)",
+      "safetensors": {
+        "model-00001-of-00002.safetensors": "cc1377f85e76a0f4c52f769f1916811af19f097b9696827dbbb733e6f9525853",
+        "model-00002-of-00002.safetensors": "81bbacb31bb2eeeaac93b38b82008a05a1ea3f3219784fa3ddc10f2a09a46718"
+      },
+      "gguf": {
+        "ft-counsel-Llama-3.2-3B-Instruct-jepa-full.Q4_K_M.gguf": "c414237747f9d924b905847babcb1b36ca02786c3c9f6d3ed94bec0df6009c8d"
+      },
+      "local_safetensors": "dist/_staging/ft-counsel-Llama-3.2-3B-Instruct-jepa-full",
+      "local_gguf": "dist/_gguf/ft-counsel-Llama-3.2-3B-Instruct-jepa-full"
+    },
+    "ft-counsel-Llama-3.2-3B-Instruct-regular-full-dom": {
+      "repo_id": "renaudb1999/le-harnais-ft-counsel-Llama-3.2-3B-Instruct-regular-full-dom",
+      "base": "meta-llama/Llama-3.2-3B-Instruct",
+      "class": "ablation",
+      "visibility": "public",
+      "retrain_only": true,
+      "dataset": "datasets/counsel_train.jsonl (270 ex; wisdom+commentary, PD sources)",
+      "metric": "counsel-corpus scaling \u00d7 augmentation \u00d7 JEPA ablation (see docs/jepa.md)",
+      "reproduce": "see docs/jepa.md (counsel scaling grid)",
+      "safetensors": {
+        "model-00001-of-00002.safetensors": "1a72373083a281a25ecac19cf3495cdd24e102daf5a7d61f034354b77559ae93",
+        "model-00002-of-00002.safetensors": "7340d056cbde9d6d50c9d76fe3660ccc238d0171c3f8c4670719a62d3cb08307"
+      },
+      "gguf": {
+        "ft-counsel-Llama-3.2-3B-Instruct-regular-full-dom.Q4_K_M.gguf": "39d712651766fe5092125b21d1eadb8f07bb22280ce62eed6807235e238f5da5"
+      },
+      "local_safetensors": "dist/_staging/ft-counsel-Llama-3.2-3B-Instruct-regular-full-dom",
+      "local_gguf": "dist/_gguf/ft-counsel-Llama-3.2-3B-Instruct-regular-full-dom"
+    },
+    "ft-counsel-Llama-3.2-3B-Instruct-regular-full-plus": {
+      "repo_id": "renaudb1999/le-harnais-ft-counsel-Llama-3.2-3B-Instruct-regular-full-plus",
+      "base": "meta-llama/Llama-3.2-3B-Instruct",
+      "class": "ablation",
+      "visibility": "public",
+      "retrain_only": true,
+      "dataset": "datasets/counsel_train.jsonl (270 ex; wisdom+commentary, PD sources)",
+      "metric": "counsel-corpus scaling \u00d7 augmentation \u00d7 JEPA ablation (see docs/jepa.md)",
+      "reproduce": "see docs/jepa.md (counsel scaling grid)",
+      "safetensors": {
+        "model-00001-of-00002.safetensors": "3b745baadcfb633de340627ac3a4d98bb7a1f288d90c57364776b60be0b60bf7",
+        "model-00002-of-00002.safetensors": "ab0df35e8a5f3396f1b5e6fa08b8af2bb56d5598d9e38a407d1d11f55273e827"
+      },
+      "gguf": {
+        "ft-counsel-Llama-3.2-3B-Instruct-regular-full-plus.Q4_K_M.gguf": "77baa5a996b44f023a48a294f764c115e7a659a08fe49112c2df7df0f214bce0"
+      },
+      "local_safetensors": "dist/_staging/ft-counsel-Llama-3.2-3B-Instruct-regular-full-plus",
+      "local_gguf": "dist/_gguf/ft-counsel-Llama-3.2-3B-Instruct-regular-full-plus"
+    },
+    "ft-counsel-Meta-Llama-3.1-8B-Instruct-regular-full": {
+      "repo_id": "renaudb1999/le-harnais-ft-counsel-Meta-Llama-3.1-8B-Instruct-regular-full",
+      "base": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+      "class": "ablation",
+      "visibility": "public",
+      "retrain_only": true,
+      "dataset": "datasets/counsel_train.jsonl (270 ex; wisdom+commentary, PD sources)",
+      "metric": "counsel-corpus scaling \u00d7 augmentation \u00d7 JEPA ablation (see docs/jepa.md)",
+      "reproduce": "see docs/jepa.md (counsel scaling grid)",
+      "safetensors": {
+        "model-00001-of-00004.safetensors": "51f84dac87148593c4c614c62bdedec388e7d35a9a91b9308354909f0f3b9c52",
+        "model-00002-of-00004.safetensors": "61ed5a89d68069340cb75578e2e1fd4537f6c8fed48c4d40d61836a801b8e55e",
+        "model-00003-of-00004.safetensors": "771406d19fb5d14e06ade797344aa036be9a4535a683caca5a3c4d7cf582c263",
+        "model-00004-of-00004.safetensors": "ec16aa33130774673fc98afb60b4994ec390dbdb657cd959933d8085604370ae"
+      },
+      "gguf": {
+        "ft-counsel-Meta-Llama-3.1-8B-Instruct-regular-full.Q4_K_M.gguf": "c194e3a7deb0ab2194961d4e3a11609790572ae2e6794cc791b7ddac7ae6b89b"
+      },
+      "local_safetensors": "dist/_staging/ft-counsel-Meta-Llama-3.1-8B-Instruct-regular-full",
+      "local_gguf": "dist/_gguf/ft-counsel-Meta-Llama-3.1-8B-Instruct-regular-full"
+    },
+    "ft-counsel-Meta-Llama-3.1-8B-Instruct-jepa": {
+      "repo_id": "renaudb1999/le-harnais-ft-counsel-Meta-Llama-3.1-8B-Instruct-jepa",
+      "base": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+      "class": "ablation",
+      "visibility": "public",
+      "retrain_only": true,
+      "dataset": "datasets/counsel_train.jsonl (270 ex; wisdom+commentary, PD sources)",
+      "metric": "counsel-corpus scaling \u00d7 augmentation \u00d7 JEPA ablation (see docs/jepa.md)",
+      "reproduce": "see docs/jepa.md (counsel scaling grid)",
+      "safetensors": {
+        "model-00001-of-00004.safetensors": "5f92f6724e3476157950411a94b00ad67ac1149b556e5ac8eff61d528972fcfc",
+        "model-00002-of-00004.safetensors": "143519f608f49e476853ea410b2be34272860868bf72c3ed9fb03df49717b592",
+        "model-00003-of-00004.safetensors": "756898f4c2a11d93fea49f116eb8638ffcbe1619d56ab3024dc951e300d4fac2",
+        "model-00004-of-00004.safetensors": "7561ce21d09bcc683b24b4184db1bc258d73bee57c3c6d346a551747370c82d8"
+      },
+      "gguf": {
+        "ft-counsel-Meta-Llama-3.1-8B-Instruct-jepa.Q4_K_M.gguf": "cb0b524f75692dacefdf115c590b365c47f0ca4f6297ec859c0670ddce3be6a8"
+      },
+      "local_safetensors": "dist/_staging/ft-counsel-Meta-Llama-3.1-8B-Instruct-jepa",
+      "local_gguf": "dist/_gguf/ft-counsel-Meta-Llama-3.1-8B-Instruct-jepa"
+    },
+    "ft-counsel-Meta-Llama-3.1-8B-Instruct-jepa-full": {
+      "repo_id": "renaudb1999/le-harnais-ft-counsel-Meta-Llama-3.1-8B-Instruct-jepa-full",
+      "base": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+      "class": "ablation",
+      "visibility": "public",
+      "retrain_only": true,
+      "dataset": "datasets/counsel_train.jsonl (270 ex; wisdom+commentary, PD sources)",
+      "metric": "counsel-corpus scaling \u00d7 augmentation \u00d7 JEPA ablation (see docs/jepa.md)",
+      "reproduce": "see docs/jepa.md (counsel scaling grid)",
+      "safetensors": {
+        "model-00001-of-00004.safetensors": "eaaf656fb1ea34fb446a867d943c9f20fb7d581ca779164a11de043a5c6e64da",
+        "model-00002-of-00004.safetensors": "b13ee27f815cc9e57ca07a89d85bba1c7c56349148846837aa6f297cbf7ac1d0",
+        "model-00003-of-00004.safetensors": "8f72477fa1e7231a21c3f5427a07a748cd288b3fb9c227d4a1b1964e24bc4023",
+        "model-00004-of-00004.safetensors": "ec63bedbf9ea97515479691ea200b9c8923308e98b7ff4c1d36f0e71f55bdf1b"
+      },
+      "gguf": {
+        "ft-counsel-Meta-Llama-3.1-8B-Instruct-jepa-full.Q4_K_M.gguf": "1a07523cffc91553528da63f15920600c176aa5225fe00cc14289fba47bdefd5"
+      },
+      "local_safetensors": "dist/_staging/ft-counsel-Meta-Llama-3.1-8B-Instruct-jepa-full",
+      "local_gguf": "dist/_gguf/ft-counsel-Meta-Llama-3.1-8B-Instruct-jepa-full"
+    },
+    "ft-counsel-Meta-Llama-3.1-8B-Instruct-jepa-loraembed": {
+      "repo_id": "renaudb1999/le-harnais-ft-counsel-Meta-Llama-3.1-8B-Instruct-jepa-loraembed",
+      "base": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+      "class": "ablation",
+      "visibility": "public",
+      "retrain_only": true,
+      "dataset": "datasets/counsel_train.jsonl (270 ex; wisdom+commentary, PD sources)",
+      "metric": "counsel-corpus scaling \u00d7 augmentation \u00d7 JEPA ablation (see docs/jepa.md)",
+      "reproduce": "see docs/jepa.md (counsel scaling grid)",
+      "safetensors": {
+        "model-00001-of-00004.safetensors": "0fa58827a88133048cee21af8cd48d6e1c2478efff5ec20a6e0ab5a5b79e8138",
+        "model-00002-of-00004.safetensors": "7fcbd4e92d909756559c2222fd390331be7b610009b18de8481ff9a9860c5e68",
+        "model-00003-of-00004.safetensors": "ccbbf0adc383c91ab22580e359e41232a41a3ccf8d2d3980463487727bd8a0f9",
+        "model-00004-of-00004.safetensors": "475a94f963674824b578283879e9570e633d4dec73d5fbf1e3d7f9a85037b395"
+      },
+      "gguf": {
+        "ft-counsel-Meta-Llama-3.1-8B-Instruct-jepa-loraembed.Q4_K_M.gguf": "f65d97646a30b3bfb1fc35ff827db69566ceecdfa04e98352e8d5848b320ae98"
+      },
+      "local_safetensors": "dist/_staging/ft-counsel-Meta-Llama-3.1-8B-Instruct-jepa-loraembed",
+      "local_gguf": "dist/_gguf/ft-counsel-Meta-Llama-3.1-8B-Instruct-jepa-loraembed"
+    },
+    "ft-counsel-Meta-Llama-3.1-8B-Instruct-regular-dom2": {
+      "repo_id": "renaudb1999/le-harnais-ft-counsel-Meta-Llama-3.1-8B-Instruct-regular-dom2",
+      "base": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+      "class": "ablation",
+      "visibility": "public",
+      "retrain_only": true,
+      "dataset": "datasets/counsel_train.jsonl (270 ex; wisdom+commentary, PD sources)",
+      "metric": "counsel-corpus scaling \u00d7 augmentation \u00d7 JEPA ablation (see docs/jepa.md)",
+      "reproduce": "see docs/jepa.md (counsel scaling grid)",
+      "safetensors": {
+        "model-00001-of-00004.safetensors": "c24d3481f68c4bfc5912933bb8ba2895107d1f598532872d2d340a9e801c8d21",
+        "model-00002-of-00004.safetensors": "f4c4e8691e2e0fbca64d913a4f4272d99e8fa7b7382fe5f74e571cdbc8cd1e35",
+        "model-00003-of-00004.safetensors": "2164f19dc304a5bc2b1b37480f8b697b644f6e7bc8d8d32b52fd1c9ce6996749",
+        "model-00004-of-00004.safetensors": "3ae87da77386211aa73771b3af1e7fa5f58125d44c9b5128248eac258e376d4d"
+      },
+      "gguf": {
+        "ft-counsel-Meta-Llama-3.1-8B-Instruct-regular-dom2.Q4_K_M.gguf": "194fa0751223577a9e0bff645b80c2ad8caeb5c9b2803e5e69f98377f1809032"
+      },
+      "local_safetensors": "dist/_staging/ft-counsel-Meta-Llama-3.1-8B-Instruct-regular-dom2",
+      "local_gguf": "dist/_gguf/ft-counsel-Meta-Llama-3.1-8B-Instruct-regular-dom2"
+    },
+    "ft-medium-regular": {
+      "repo_id": "renaudb1999/le-harnais-ft-medium-regular",
+      "base": "meta-llama/Llama-3.2-1B-Instruct",
+      "class": "ablation",
+      "visibility": "public",
+      "retrain_only": true,
+      "dataset": "spider (NL\u2192SQL)",
+      "metric": "JEPA \u22640 on NL\u2192SQL (the negative result; exec-match ~0.287)",
+      "reproduce": "cd refs/llm-jepa && .venv/bin/python ../../tools/run_jepa_sweep.py --seeds 82 --eval-cap 300",
+      "safetensors": {
+        "model.safetensors": "1dcf66e0ed2d4e14d792e2cbed95214eeeaa1001830f00f59406ac7c2c8aac84"
+      },
+      "gguf": {
+        "ft-medium-regular.Q4_K_M.gguf": "e23f11523863968751f61d663662cb8586e6e2c0149a45de93b63ea2fbdc6bb3"
+      },
+      "local_safetensors": "dist/_staging/ft-medium-regular",
+      "local_gguf": "dist/_gguf/ft-medium-regular"
+    },
+    "ft-medium-jepa": {
+      "repo_id": "renaudb1999/le-harnais-ft-medium-jepa",
+      "base": "meta-llama/Llama-3.2-1B-Instruct",
+      "class": "ablation",
+      "visibility": "public",
+      "retrain_only": true,
+      "dataset": "spider (NL\u2192SQL)",
+      "metric": "JEPA \u22640 on NL\u2192SQL (the negative result; exec-match ~0.287)",
+      "reproduce": "cd refs/llm-jepa && .venv/bin/python ../../tools/run_jepa_sweep.py --seeds 82 --eval-cap 300",
+      "safetensors": {
+        "model.safetensors": "51146325a5f2a90bdf8c7d54899436a70d12476f737a9168a31e4215476b1312"
+      },
+      "gguf": {
+        "ft-medium-jepa.Q4_K_M.gguf": "72d7942d6cdb310c1cd58fad00e4bea68396f571461e54c287697d099dcc8fcf"
+      },
+      "local_safetensors": "dist/_staging/ft-medium-jepa",
+      "local_gguf": "dist/_gguf/ft-medium-jepa"
+    },
+    "ft-medium-jepa-drop75": {
+      "repo_id": "renaudb1999/le-harnais-ft-medium-jepa-drop75",
+      "base": "meta-llama/Llama-3.2-1B-Instruct",
+      "class": "ablation",
+      "visibility": "public",
+      "retrain_only": true,
+      "dataset": "spider (NL\u2192SQL)",
+      "metric": "JEPA \u22640 on NL\u2192SQL (the negative result; exec-match ~0.287)",
+      "reproduce": "cd refs/llm-jepa && .venv/bin/python ../../tools/run_jepa_sweep.py --seeds 82 --eval-cap 300",
+      "safetensors": {
+        "model.safetensors": "30766e5ffee5b3dfd6871b93622c2492c68089c3e9f766ae9ea600315a9a6cc6"
+      },
+      "gguf": {
+        "ft-medium-jepa-drop75.Q4_K_M.gguf": "59eff11512315d24d8e639c8cc7cc7d8c256a332718540459ded0f3aa5981ac1"
+      },
+      "local_safetensors": "dist/_staging/ft-medium-jepa-drop75",
+      "local_gguf": "dist/_gguf/ft-medium-jepa-drop75"
+    },
+    "ft-smoke-regular": {
+      "repo_id": "renaudb1999/le-harnais-ft-smoke-regular",
+      "base": "meta-llama/Llama-3.2-1B-Instruct",
+      "class": "smoke",
+      "visibility": "public",
+      "retrain_only": true,
+      "dataset": "128-sample smoke split",
+      "metric": "NOT A RESULT \u2014 128-sample/1-epoch pipeline validation only",
+      "reproduce": "cd refs/llm-jepa && .venv/bin/python ../../tools/run_jepa_seeds.py --dataset synth --eval-cap 64",
+      "safetensors": {
+        "model.safetensors": "dac7f8fb0790bf3d3822a28ef5fd989a792aa714a4043f37e2d8f557739105df"
+      },
+      "gguf": {
+        "ft-smoke-regular.Q4_K_M.gguf": "babc311a371611698214b4a1dcb1038f143c57f585b8cc2820266478eb5af0b7"
+      },
+      "local_safetensors": "dist/_staging/ft-smoke-regular",
+      "local_gguf": "dist/_gguf/ft-smoke-regular"
+    },
+    "ft-smoke-jepa": {
+      "repo_id": "renaudb1999/le-harnais-ft-smoke-jepa",
+      "base": "meta-llama/Llama-3.2-1B-Instruct",
+      "class": "smoke",
+      "visibility": "public",
+      "retrain_only": true,
+      "dataset": "128-sample smoke split",
+      "metric": "NOT A RESULT \u2014 128-sample/1-epoch pipeline validation only",
+      "reproduce": "cd refs/llm-jepa && .venv/bin/python ../../tools/run_jepa_seeds.py --dataset synth --eval-cap 64",
+      "safetensors": {
+        "model.safetensors": "79c23130eacc4d1855a71cf282e315170130ac2d8142797640fd7ea721d09260"
+      },
+      "gguf": {
+        "ft-smoke-jepa.Q4_K_M.gguf": "18ec738a8757cbed33779419cf232fe61a5389c1d88ab09fc3d77ccb53b6ec65"
+      },
+      "local_safetensors": "dist/_staging/ft-smoke-jepa",
+      "local_gguf": "dist/_gguf/ft-smoke-jepa"
+    }
+  }
+}

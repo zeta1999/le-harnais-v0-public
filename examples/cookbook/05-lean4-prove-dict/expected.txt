@@ -1,0 +1,2 @@
+[verify] OK — typechecks, no sorry, no errors.
+PROVED (no errors, no sorry)

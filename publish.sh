@@ -18,8 +18,8 @@ LIMIT_ASSERT=$((50*1024*1024))                # fail if anything > 50 MB survive
 
 [ -d "$DEST" ] || { echo "DEST '$DEST' does not exist"; exit 1; }
 
-echo ">> arch-verify (no mislabeled binary may be published)"
-"$SRC/verify-arch.sh" || { echo "ABORT: mislabeled binary — fix before publishing."; exit 1; }
+echo ">> arch-verify (no mislabeled binary, no undeclared shared-lib dep)"
+"$SRC/verify-arch.sh" || { echo "ABORT: mislabeled binary or undeclared/unauditable linked libs — fix before publishing."; exit 1; }
 
 echo ">> mirror dist/ → $DEST"
 # copy everything on disk except heavy/local build scratch. rsync if available, else cp.
@@ -36,6 +36,13 @@ fi
 [ -f "$SRC/PUBLIC-README.md" ] && cp "$SRC/PUBLIC-README.md" "$DEST/README.md"
 # carry the shared logo
 [ -f "$PWD/assets/logo.svg" ] && { mkdir -p "$DEST/assets"; cp "$PWD/assets/logo.svg" "$DEST/assets/"; }
+# the README swap above invalidates the mirrored top-level SHA256SUMS —
+# regenerate it against DEST's actual files so `sha256sum -c` passes there.
+if [ -f "$DEST/SHA256SUMS" ]; then
+  ( cd "$DEST" && awk '{print $2}' SHA256SUMS | xargs sha256sum > SHA256SUMS.new \
+      && mv SHA256SUMS.new SHA256SUMS && sha256sum -c SHA256SUMS --quiet ) \
+    || { echo "SHA256SUMS regeneration FAILED in $DEST"; exit 1; }
+fi
 
 echo ">> split files > 45 MB"
 JOIN="$DEST/join.sh"

@@ -26,11 +26,45 @@ What each capability needs, at **build** time and **run** time, per target. Run
 | logic: `lean` | `lean` + `lake` (elan toolchain) | shells out |
 | generation | ollama **or** an OpenAI-compat endpoint **or** `lh-serve` | — |
 | quantum (`aria` tool, `docs/quantum`) | `aria` on PATH (or `LH_ARIA_BIN`) | binary in `tools/aria/` |
-| leanlift (`lift`) | a Lean 4 toolchain (elan/lake) | binary in `tools/leanlift/` |
+| leanlift (`lift`) | a Lean 4 toolchain (elan/lake); the `rust-*`/`c2r-*` examples and `lift prove` also need Charon+Aeneas, and `c2r-*` needs cpp2rust — both **optional & self-skipping** (see below) | binary in `tools/leanlift/` |
 | security (`appsec`) | **Docker** + the scanner images pinned in `tools/appsec/tools.lock` | binary in `tools/appsec/` |
 | lean4-skills | a Lean 4 toolchain + the upstream python engine | skills in `tools/lean4-skills/` |
 
 Install hints (per OS) are printed by `check-env.sh` for anything missing.
+
+### `lh logic lean4` against a real project: `LH_LEAN_PROJECT`
+
+By default the lean backend elaborates snippets standalone. Point
+`LH_LEAN_PROJECT` at a lake project root and `lh` runs `lake env lean` there
+instead, so snippets can `import` the project's modules and mathlib
+(`<project>/.lake/packages/mathlib`; override with `MATHLIB_PATH`). This is how
+leanlift's independent re-certification calls us: `LEANLIFT_LH=1 lift prove …`
+sets `LH_LEAN_PROJECT` to Aeneas's `backends/lean` so both certifiers elaborate
+in the same environment.
+
+### leanlift's optional provers (for the bundled `lift`)
+
+`lift`'s sound lanes shell out to tools it locates by env var and **self-skips
+without** (clean `SKIPPED`, exit 0 — never a failure):
+
+| tool | enables | build (in a leanlift checkout) | locate via |
+|---|---|---|---|
+| Charon + Aeneas | `rust-*`, `c2r-*`, `lift prove` (L3) | `scripts/build_aeneas.sh` (OCaml/opam) | `LEANLIFT_AENEAS` |
+| cpp2rust | the deterministic C++→Rust→Lean `c2r-*` lane | `scripts/build_cpp2rust.sh` (auto-fetches LLVM 22 if system clang < 21) | `LEANLIFT_CPP2RUST` |
+
+## Linked shared libraries (.so/.dylib)
+
+**Nothing to bundle.** Every bundled binary links only base-system libraries
+(glibc/gcc runtime). The one exception class: the `*-cuda` server additionally
+links `libcuda` (ships with the **NVIDIA driver**) and `libcublas`/`libcurand`
+(ship with the **CUDA toolkit runtime** — NVIDIA-redistributable, but a
+driver-only box must install the toolkit runtime or the binary won't load; the
+Tier-A `lh` binaries have no such deps). This is *enforced*, not asserted:
+`./verify-arch.sh` audits each present binary's `NEEDED`/`otool -L` entries
+against an anchored allowlist and fails the publish gate on anything
+undeclared or unauditable. Caveat: split binaries (`*.part-*`, e.g. appsec in
+the public mirror) are audited only after `join.sh` reassembles them.
+Per-binary lists live in `MANIFEST.json` (`linked_libs`).
 
 ## Build dependencies (only if rebuilding from source)
 

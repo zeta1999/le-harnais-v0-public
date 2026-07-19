@@ -15,7 +15,8 @@ Legend: ✅ built & bundled here · ☐ to build on that platform · — not app
 | `appsec` (security) | ✅ | ☐ | ✅ | `tools/appsec/build.sh` (Go+CGO) | Docker + scanners |
 
 Sub-note: `lh-linux-arm64` doubles as the **DGX Spark** core binary; `lh-serve` for the
-Spark is built **on the Spark** (`--features cuda`, sm_121).
+Spark is built **on the Spark** (`--features cuda`, sm_121). Both `appsec` binaries are built
+from security-toolkit `585147d` (linux here, macOS by the Mac agent).
 
 ## SHA-256 (first 16 hex) of what's bundled here
 
@@ -29,7 +30,7 @@ aria-linux-x86_64            f755e42d3f6addb1   (1.2M)
 aria-macos-arm64             1f607b0d8cb4c19a   (1.0M)
 lift-linux-x86_64            8e8f4ccc18db4e9d   (1.4M, leanlift@e9c5b07 — includes the c2r lane)
 lift-macos-arm64             66a28b1d9d953d8e   (1.2M, leanlift@e9c5b07 — includes the c2r lane)
-appsec-linux-x86_64          6d88936b3b0fdaf8   (57M → split in the public mirror)
+appsec-linux-x86_64          6d88936b3b0fdaf8   (57M → split; security-toolkit@585147d)
 appsec-macos-arm64           10f374fc6bbf446e   (49M → split; security-toolkit@585147d)
 ```
 

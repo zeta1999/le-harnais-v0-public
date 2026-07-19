@@ -29,9 +29,9 @@
         "build": "dist/build-matrix.sh arm64"
       },
       "lh-macos-arm64": {
-        "sha256": "2110aad6da26c4f69bd75935e8888b36ce782e9c37a878c7834f214f7bcadcbd",
+        "sha256": "8bf402073bf27ec9b8b0c8f8b0db0dffdf3697bc530b724e17bbe598b578b1a0",
         "tier": "A", "platform": "macos-arm64",
-        "source_commit": "ce3cd80",
+        "source_commit": "ac6de03",
         "linked_libs": ["/usr/lib/libiconv.2.dylib", "/usr/lib/libSystem.B.dylib"],
         "standalone": "verified — base-system dylibs only (otool -L, enforced by verify-arch.sh); built on Apple M4 Pro. Runs `--version`, `doctor`, `model list`, single-shot chat, and the full agent tool-use loop against ollama (Gemma4:e4b, 24 GB unified RAM)",
         "build": "cargo build --release --target aarch64-apple-darwin -p lh-cli (native on Apple Silicon; dist/build-mac-all.sh)"

@@ -23,7 +23,7 @@ Spark is built **on the Spark** (`--features cuda`, sm_121).
 lh-linux-x86_64              ce37a0f1c23d486c   (13M, @df0d93c)
 lh-linux-arm64               3b17743b2a3114c7   (15M, @df0d93c)
 lh-serve-linux-x86_64-cuda   bf2d322ca71f1267   (19M, @df0d93c)
-lh-macos-arm64               2110aad6da26c4f6   (11M, @ce3cd80 — Apple M4/M5)
+lh-macos-arm64               8bf402073bf27ec9   (11M, @ac6de03 — Apple M4/M5, merged cascade)
 lh-serve-macos-arm64-metal   d68c7277b438c960   (9.1M, @ce3cd80 — Metal backend)
 aria-linux-x86_64            f755e42d3f6addb1   (1.2M)
 aria-macos-arm64             1f607b0d8cb4c19a   (1.0M)

@@ -29,9 +29,12 @@
         "build": "dist/build-matrix.sh arm64"
       },
       "lh-macos-arm64": {
-        "sha256": null,
+        "sha256": "2110aad6da26c4f69bd75935e8888b36ce782e9c37a878c7834f214f7bcadcbd",
         "tier": "A", "platform": "macos-arm64",
-        "note": "build on a Mac via build-macos.sh (cannot cross-build from Linux)"
+        "source_commit": "ce3cd80",
+        "linked_libs": ["/usr/lib/libiconv.2.dylib", "/usr/lib/libSystem.B.dylib"],
+        "standalone": "verified — base-system dylibs only (otool -L, enforced by verify-arch.sh); built on Apple M4 Pro. Runs `--version`, `doctor`, `model list`, single-shot chat, and the full agent tool-use loop against ollama (Gemma4:e4b, 24 GB unified RAM)",
+        "build": "cargo build --release --target aarch64-apple-darwin -p lh-cli (native on Apple Silicon; dist/build-mac-all.sh)"
       },
       "lh-serve-linux-x86_64-cuda": {
         "sha256": "bf2d322ca71f12671efd70ce10974f6a443524f3e9c6980cb873a7a954489b0f",
@@ -47,9 +50,12 @@
         "note": "build ON the Spark (Blackwell GB10, sm_121); cross-compiling CUDA for arm64 is impractical"
       },
       "lh-serve-macos-arm64-metal": {
-        "sha256": null,
+        "sha256": "d68c7277b438c96045459c5b544b33b87af65f87b46ca4a7ed4daf413f7231fe",
         "tier": "B", "platform": "macos-arm64", "metal": true,
-        "note": "build on the Mac: cargo build -p lh-serve --features metal"
+        "source_commit": "ce3cd80",
+        "linked_libs": ["/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation", "/usr/lib/libc++.1.dylib", "/System/Library/Frameworks/Metal.framework/Versions/A/Metal", "/usr/lib/libSystem.B.dylib", "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation", "/usr/lib/libobjc.A.dylib", "/usr/lib/libiconv.2.dylib"],
+        "linked_libs_note": "base-system dylibs + the Metal/Foundation/CoreFoundation frameworks (always present on macOS); allowlisted for macOS binaries by verify-arch.sh",
+        "build": "cargo build --release --target aarch64-apple-darwin -p lh-serve --features metal (native on Apple Silicon)"
       }
     },
     "models": {

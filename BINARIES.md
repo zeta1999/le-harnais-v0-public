@@ -8,11 +8,11 @@ Legend: ✅ built & bundled here · ☐ to build on that platform · — not app
 
 | binary | linux-x86_64 | linux-arm64 | macOS arm64 | build command | runtime deps |
 |---|:-:|:-:|:-:|---|---|
-| `lh` (core agent) | ✅ | ✅ | ☐ | see below | ollama (generation) |
-| `lh-serve` (candle) | ✅ cuda | — (use ollama) | ☐ metal | `cargo build -p lh-serve --features {cuda,metal}` | CUDA sm_120 / Metal |
+| `lh` (core agent) | ✅ | ✅ | ✅ | see below | ollama (generation) |
+| `lh-serve` (candle) | ✅ cuda | — (use ollama) | ✅ metal | `cargo build -p lh-serve --features {cuda,metal}` | CUDA sm_120 / Metal |
 | `aria` (quantum) | ✅ | ☐ | ✅ | `tools/aria/build.sh` | none (pure Rust) |
-| `lift` (leanlift) | ✅ | ☐ | ☐ | `tools/leanlift/build.sh` | Lean 4 toolchain; optional self-skipping: Aeneas (`prove`/`rust-*`/`c2r-*`) + cpp2rust (`c2r-*`) |
-| `appsec` (security) | ✅ | ☐ | ☐ | `tools/appsec/build.sh` (Go+CGO) | Docker + scanners |
+| `lift` (leanlift) | ✅ | ☐ | ✅ | `tools/leanlift/build.sh` | Lean 4 toolchain; optional self-skipping: Aeneas (`prove`/`rust-*`/`c2r-*`) + cpp2rust (`c2r-*`) |
+| `appsec` (security) | ✅ | ☐ | ✅ | `tools/appsec/build.sh` (Go+CGO) | Docker + scanners |
 
 Sub-note: `lh-linux-arm64` doubles as the **DGX Spark** core binary; `lh-serve` for the
 Spark is built **on the Spark** (`--features cuda`, sm_121).
@@ -23,10 +23,14 @@ Spark is built **on the Spark** (`--features cuda`, sm_121).
 lh-linux-x86_64              ce37a0f1c23d486c   (13M, @df0d93c)
 lh-linux-arm64               3b17743b2a3114c7   (15M, @df0d93c)
 lh-serve-linux-x86_64-cuda   bf2d322ca71f1267   (19M, @df0d93c)
+lh-macos-arm64               2110aad6da26c4f6   (11M, @ce3cd80 — Apple M4/M5)
+lh-serve-macos-arm64-metal   d68c7277b438c960   (9.1M, @ce3cd80 — Metal backend)
 aria-linux-x86_64            f755e42d3f6addb1   (1.2M)
-aria-macos-arm64             2cc0e5309ca282f8   (1.4M)
+aria-macos-arm64             1f607b0d8cb4c19a   (1.0M)
 lift-linux-x86_64            8e8f4ccc18db4e9d   (1.4M, leanlift@e9c5b07 — includes the c2r lane)
+lift-macos-arm64             66a28b1d9d953d8e   (1.2M, leanlift@e9c5b07 — includes the c2r lane)
 appsec-linux-x86_64          6d88936b3b0fdaf8   (57M → split in the public mirror)
+appsec-macos-arm64           e1c4dc398b38c451   (48M → split in the public mirror)
 ```
 
 Full digests live in `bin/SHA256SUMS`, `MANIFEST.json`, and the top-level

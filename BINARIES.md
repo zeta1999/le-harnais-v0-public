@@ -30,7 +30,7 @@ aria-macos-arm64             1f607b0d8cb4c19a   (1.0M)
 lift-linux-x86_64            8e8f4ccc18db4e9d   (1.4M, leanlift@e9c5b07 — includes the c2r lane)
 lift-macos-arm64             66a28b1d9d953d8e   (1.2M, leanlift@e9c5b07 — includes the c2r lane)
 appsec-linux-x86_64          6d88936b3b0fdaf8   (57M → split in the public mirror)
-appsec-macos-arm64           e1c4dc398b38c451   (48M → split in the public mirror)
+appsec-macos-arm64           10f374fc6bbf446e   (49M → split; security-toolkit@585147d)
 ```
 
 Full digests live in `bin/SHA256SUMS`, `MANIFEST.json`, and the top-level

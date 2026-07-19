@@ -21,16 +21,16 @@ from security-toolkit `585147d` (linux here, macOS by the Mac agent).
 ## SHA-256 (first 16 hex) of what's bundled here
 
 ```
-lh-linux-x86_64              ce37a0f1c23d486c   (13M, @df0d93c)
-lh-linux-arm64               3b17743b2a3114c7   (15M, @df0d93c)
-lh-serve-linux-x86_64-cuda   bf2d322ca71f1267   (19M, @df0d93c)
+lh-linux-x86_64              cb0857a55f7917b1   (13M, @d5cdcc5 — distill cascade, rebuilt 2026-07-19)
+lh-linux-arm64               bdc310a61ea0f665   (15M, @d5cdcc5 — distill cascade, rebuilt 2026-07-19)
+lh-serve-linux-x86_64-cuda   3270dcbb06b7a389   (19M, @d5cdcc5 — sm_120, rebuilt 2026-07-19)
 lh-macos-arm64               340b2dc4ce8fca8f   (11M, @ea7ada7 — Apple M4/M5, install-hint msgs)
 lh-serve-macos-arm64-metal   d68c7277b438c960   (9.1M, @ce3cd80 — Metal backend)
 aria-linux-x86_64            f755e42d3f6addb1   (1.2M)
 aria-macos-arm64             1f607b0d8cb4c19a   (1.0M)
 lift-linux-x86_64            8e8f4ccc18db4e9d   (1.4M, leanlift@e9c5b07 — includes the c2r lane)
 lift-macos-arm64             66a28b1d9d953d8e   (1.2M, leanlift@e9c5b07 — includes the c2r lane)
-appsec-linux-x86_64          6d88936b3b0fdaf8   (57M → split; security-toolkit@585147d)
+appsec-linux-x86_64          88ee6fb23fbe32d1   (57M → split; security-toolkit@585147d)
 appsec-macos-arm64           10f374fc6bbf446e   (49M → split; security-toolkit@585147d)
 ```
 

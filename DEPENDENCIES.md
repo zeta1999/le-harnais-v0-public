@@ -14,6 +14,21 @@ What each capability needs, at **build** time and **run** time, per target. Run
   **macOS+Metal** only. Use ollama unless you specifically need it.
 - any **OpenAI-compatible** endpoint — `lh` speaks it via `lh_llm::LlmClient`.
 
+### Which model to pull
+
+The verifier-grounded cascade (`lh solve … --cascade`, and the built-in `default_route`) escalates
+`qwen3.6:35b-a3b-bf16` → the **Qwen3.5-9B DeepSeek-V4-Flash distill** → `gemma4:26b` → `gemma4:12b`.
+On a big CUDA/VRAM box, pull `qwen3.6:35b-a3b-bf16` (71 GB, the settled best all-round solver).
+
+**On a Mac (incl. 16/24 GB):** pull the distill — it's the only cascade tier that fits, ~10 GB,
+dense, clean fenced output, strong on prolog and competitive on lean-with-repair:
+
+```sh
+ollama pull hf.co/Jackrong/Qwen3.5-9B-DeepSeek-V4-Flash-GGUF:Q8_0   # ~10 GB — the Mac-lane solver
+# then, e.g.:
+lh solve prolog "<task>" --model hf.co/Jackrong/Qwen3.5-9B-DeepSeek-V4-Flash-GGUF:Q8_0
+```
+
 ## Runtime dependencies (by feature)
 
 | feature | needs on PATH / running | bundled instead? |

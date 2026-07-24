@@ -21,10 +21,10 @@ from security-toolkit `585147d` (linux here, macOS by the Mac agent).
 ## SHA-256 (first 16 hex) of what's bundled here
 
 ```
-lh-linux-x86_64              cb0857a55f7917b1   (13M, @d5cdcc5 — distill cascade, rebuilt 2026-07-19)
-lh-linux-arm64               bdc310a61ea0f665   (15M, @d5cdcc5 — distill cascade, rebuilt 2026-07-19)
+lh-linux-x86_64              252e54bcd51857e2   (13M, @2d03a8f — R1-R8 eval fixes, rebuilt 2026-07-24)
+lh-linux-arm64               a466e608d3d10a36   (15M, @2d03a8f — R1-R8 eval fixes, rebuilt 2026-07-24)
 lh-serve-linux-x86_64-cuda   3270dcbb06b7a389   (19M, @d5cdcc5 — sm_120, rebuilt 2026-07-19)
-lh-macos-arm64               340b2dc4ce8fca8f   (11M, @ea7ada7 — Apple M4/M5, install-hint msgs)
+lh-macos-arm64               7ddb24cb9ce167b1   (11M, @56b9e5b — Apple M4/M5, R1-R8 eval fixes)
 lh-serve-macos-arm64-metal   d68c7277b438c960   (9.1M, @ce3cd80 — Metal backend)
 aria-linux-x86_64            f755e42d3f6addb1   (1.2M)
 aria-macos-arm64             1f607b0d8cb4c19a   (1.0M)

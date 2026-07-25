@@ -1,5 +1,5 @@
-a466e608d3d10a3619b31579f75b2ed09641c529d2647f3eaa6a3abd5250a92e  ./bin/lh-linux-arm64
-252e54bcd51857e288b4ff757e1449bd1c91c1e752278a3650f8936355693fea  ./bin/lh-linux-x86_64
+a2f1d0a283b342ec7f34f4996888cf9fdbaf8acf89a32322af44f802cd521f06  ./bin/lh-linux-arm64
+256b82d6a290f4a470d42495bb03332d9717bb01f5db25bf62aeb251c55f7513  ./bin/lh-linux-x86_64
 3270dcbb06b7a38933d3af3c6673db7962504e9289c434e850e414c9e99927c8  ./bin/lh-serve-linux-x86_64-cuda
 7ddb24cb9ce167b132bbd13f591bdbf18851208d2785f1e2adf079c931d8a818  ./bin/lh-macos-arm64
 d68c7277b438c96045459c5b544b33b87af65f87b46ca4a7ed4daf413f7231fe  ./bin/lh-serve-macos-arm64-metal
@@ -47,7 +47,7 @@ a65546a655c95f900a3055a590b981fec965ede015589fdcd70bcecaf02befb7  ./models/model
 dd2b7b5cffd4fba6882a7953eed142c3c70a82eb9eff4c57e62bfcbad865090b  ./models/modelfiles/ft-smoke-jepa.Modelfile
 40ef5e1a60e18e8ddcface3d76c788dcad83d2004708bc4b1945b87c3fd0dcf2  ./models/modelfiles/ft-smoke-regular.Modelfile
 38d85a76873323be46ca5775588b2749ef816087e24610aa53e3f7fd48eb2318  ./models/upload_to_hf.py
-6a81d2eb05bcf857980d14117bf9011f54d4e5e51aca7dbf4b1d3556fbd16842  ./README.md
+617acc06beb6a0bc7d8ddd5b1a4cc59219adaea9e978970c803eab270e3a6606  ./README.md
 f755e42d3f6addb1f20b9bbee7eb99081ee24391b01fc15683a3c24d808d065d  ./tools/aria/aria-linux-x86_64
 1f607b0d8cb4c19a1b79a585d9728ef8cd6a722a4fd2c5dcb7da78203e41bd08  ./tools/aria/aria-macos-arm64
 8e8f4ccc18db4e9d58083be891ba553dd35230a84e5e4dfd0721926925eaffb2  ./tools/leanlift/lift-linux-x86_64

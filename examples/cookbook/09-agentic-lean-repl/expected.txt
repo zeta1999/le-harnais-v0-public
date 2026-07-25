@@ -1,0 +1,11 @@
+# The agent iterates lean_run_code until the proof compiles clean. A successful run ends with a
+# lean_run_code observation containing:  "complete": true
+# and a final answer reporting the working proof, e.g.:
+#
+#   theorem add_comm (a b : Nat) : a + b = b + a := by
+#     induction a with
+#     | zero => omega
+#     | succ a ih => omega
+#
+# (The exact tactic path varies by model/seed — greedy one-shot often misses a+b=b+a; the loop
+#  reaching "complete": true is the pass signal, not any specific proof text.)

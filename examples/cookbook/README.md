@@ -13,6 +13,7 @@ One folder per **(method × a non-trivial use case where it helps)**. Each has a
 | 06 | agent loop (ReAct tools) | write the AVL `OrderedDict` in Rust | ollama |
 | 07 | counsel game (served model + judge) | couple/proverbs advice | model-svc, ollama judge |
 | 08 | verifier-grounded cascade routing | mixed: cheap→strong by task | logic (native), ollama |
+| 09 | agentic Lean REPL (`lh run --logic` + `lean_run_code`) | iterate to a proof of `a+b=b+a` (loop beats one-shot) | lean (elan), ollama |
 
 **Logic is native — no Python sidecar (Phase R1 cutover).** Logic backends run in-process and are
 the default; there is no `logic-svc` to start. Just build and run:

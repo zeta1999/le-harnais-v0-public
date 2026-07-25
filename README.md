@@ -38,7 +38,7 @@
 | [`tools/`](tools/) | companion **binaries** + skills: `aria` (quantum), `lift` (leanlift), `appsec` (security), `lean4-skills` |
 | [`models/`](models/) | `MANIFEST.json` + `fetch_models.sh` — weights live in per-model Hugging Face repos |
 | [`datasets/`](datasets/) | versioned, checksummed backup of the training/eval datasets |
-| [`docs/`](docs/) | `models.md` (recommended local models + eval log) · `REPRODUCE.md` (exact train+eval per model) · `PROVENANCE.md` (lineage/license) |
+| [`docs/`](docs/) | `CLI-TUTORIAL.md` (hands-on `lh` command tour) · `models.md` (recommended local models + eval log) · `REPRODUCE.md` (exact train+eval per model) · `PROVENANCE.md` (lineage/license) |
 | **`check-env.sh` · `install-ollama.sh`** | environment doctor + generation-backend installer |
 | **`BINARIES.md` · `DEPENDENCIES.md`** | per-target binary checklist + the full dependency map |
 

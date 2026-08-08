@@ -158,8 +158,61 @@ bf16), both Apache-2.0. The Q8_0 GGUF is a **community** conversion (`mitkox/ant
 — convert from the upstream safetensors yourself if that provenance matters. **There is no
 published GGUF for the 350M**; it needs its own conversion before ollama can load it.
 
+### Provenance and packaging gotchas (all verified on this box, 2026-08-08)
+
+- **"Open-weight" is Apache-2.0 but access-GATED.** `fdtn-ai/antares-*` returns *"Access to model
+  … is restricted and you are not in the authorized list"* even with a valid HF token; the model
+  card requires a form that Cisco *"reviews manually"*. The metadata API (file list, license) is
+  public, the weights are not. Access for this account was granted 2026-08-08. Plan for a
+  human-in-the-loop step before any CI can pull upstream weights — the community GGUF mirror is
+  the only ungated path.
+- **It is a `granitemoehybrid`, not a dense Granite.** `config.json` reports
+  `GraniteMoeHybridForCausalLM`, 40 layers, hidden 2048, vocab 100352, ctx 131072. ollama reports
+  `arch=granite, parameters 1.8B`.
+- **The community GGUF ships NO chat template.** `ollama show` reports `{{ .Prompt }}` and
+  capability `completion` only. Loaded as-is the model ignores instructions and emits generic CWE
+  prose. `modelfiles/antares-1b.Modelfile` now carries the template ported from the upstream
+  `chat_template.jinja`.
+- **It is a reasoning model.** The upstream generation prompt ends with
+  `<|start_of_role|>assistant<|end_of_role|><think>`, so every reply is `…reasoning…</think>answer`.
+  Any driver must split on `</think>` and budget tokens for the reasoning phase — a 24-token cap
+  returns nothing usable.
+- **ollama resolves `FROM` relative to the Modelfile's own directory**, not the cwd. Since
+  `fetch_models.sh` downloads to `dist/models/<name>/`, a Modelfile in `modelfiles/` needs `../`.
+  A wrong relative path fails with the very misleading `400 Bad Request: invalid model name`.
+- **Do not one-shot it.** Asked to name a file without tools, it *invents* file contents to
+  justify its answer ("the code contains several direct SQL query constructions …" about a file
+  it never read). Its native interface is the `<tool_call>` / `<tool_response>` loop; give it real
+  `grep`/`cat` results or treat its output as fiction.
+
 Note the sizes: the "1B" is 3.67 GB in bf16, i.e. closer to ~1.8B parameters once embeddings are
-counted. Still trivially resident on every tier, but it is not a 1 GB model.
+counted. Still trivially resident on every tier, but it is not a 1 GB model. **Set `num_ctx`**:
+at its advertised 131072 default ollama reserved **13 GB** for this 1.8B model — more than
+`gemma4:12b` sitting beside it. The Modelfile pins 32768, which costs **4.6 GB**.
+
+### First local eval (2026-08-08) — `tools/antares_localization_eval.py`
+
+Run against `security-toolkit/test_sources/vuln-webservers` (39 labels, 5 files), one shot per
+task, **no agentic tool loop**. `gemma4:12b` is the control — a 7× larger generalist.
+
+| Task | what it asks | antares-1b | gemma4:12b |
+|---|---|---|:-:|
+| FILE | scanner + rule + note → pick 1 of 5 files | 54% | **82%** |
+| FILE_BLIND | description only → pick 1 of 5 files (chance 20%) | **38%** | 21% |
+| SYMBOL | file given → name the function (n=20) | **80%** | 60% |
+
+**Read FILE as a trap, not a result.** Naming the scanner leaks the language — `gosec` means Go,
+`bandit` means Python, `cargo-audit` means Rust — so that column measures scanner trivia, which a
+generalist has and a task specialist does not. An earlier version of this eval only had that
+column and appeared to show Antares losing badly (36% vs 85%). Removing the tool name reverses it:
+on FILE_BLIND **gemma4 collapses to 21%, i.e. chance**, while Antares roughly doubles chance.
+
+SYMBOL is the closest proxy to the real task, and Antares wins it 80% to 60% at ~1/7 the size.
+That is the claim holding up in the dimension that matters.
+
+Status stays 🧪 regardless: n=39/20 on a 5-file planted-bug corpus is a sanity gate, not a
+benchmark, and none of this exercised the agentic grep/find/cat loop the model is actually built
+around. Treat these as "not obviously broken, and specialized in the direction advertised."
 
 **Gate before promotion.** Status stays 🧪 until it clears a mini-eval *we* run. The published
 numbers — 500-task Vulnerability Localization Benchmark, "outperforms a dozen larger models" —

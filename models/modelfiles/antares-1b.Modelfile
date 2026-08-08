@@ -1,12 +1,55 @@
 # Cisco Foundation AI — Antares-1B (Apache-2.0), vulnerability localization.
 # THIRD-PARTY weights: not ours, not re-hosted. Fetch first, then `ollama create`:
+#   cd dist/models
 #   ./fetch_models.sh antares-1b --gguf     (or: huggingface-cli download mitkox/antares-1b-Q8_0-GGUF)
 #   ollama create antares-1b -f modelfiles/antares-1b.Modelfile
 # The model explores a repo agentically via grep/find/cat and returns RANKED CANDIDATE FILES
 # for a given CWE/CVE. It does not prove exploitability — see docs/models.md.
-FROM ./antares-1b/antares-1b-q8_0.gguf
+#
+# NOTE the `../`: ollama (verified on 0.32.6) resolves FROM relative to the MODELFILE's own
+# directory, not the working directory. fetch_models.sh downloads to dist/models/<name>/, so
+# from modelfiles/ the weights are one level up. A `./`-relative path fails here with the
+# misleading "400 Bad Request: invalid model name" (ollama falls back to treating the
+# unresolvable path as a registry reference).
+FROM ../antares-1b/antares-1b-q8_0.gguf
+
+# TEMPLATE — ported from the upstream chat_template.jinja (fdtn-ai/antares-1b, gated repo;
+# read after access was granted). The community GGUF ships NO chat template at all — ollama
+# reports `{{ .Prompt }}` and capability "completion" only — so without this block the model
+# ignores instructions and emits generic CWE prose.
+#
+# Three things the upstream template does that a naive Granite port misses:
+#   1. a system message is ALWAYS emitted; when the caller supplies none, upstream falls back
+#      to the exact default string reproduced below,
+#   2. the generation prompt opens a <think> block — this is a REASONING model, and omitting
+#      it suppresses the reasoning phase entirely,
+#   3. tool calls are <tool_call>{"name":..,"arguments":..}</tool_call> and tool results come
+#      back wrapped in <tool_response> under a *user* turn. That is the agentic grep/find/cat
+#      interface; keep it intact if you drive this model as a tool-using agent.
+TEMPLATE """{{- if .System }}<|start_of_role|>system<|end_of_role|>{{ .System }}<|end_of_text|>
+{{ else }}<|start_of_role|>system<|end_of_role|>You are a helpful assistant. Please ensure responses are professional, accurate, and safe.<|end_of_text|>
+{{ end }}
+{{- range .Messages }}
+{{- if eq .Role "system" }}
+{{- else if eq .Role "tool" }}<|start_of_role|>user<|end_of_role|>
+<tool_response>
+{{ .Content }}
+</tool_response><|end_of_text|>
+{{ else }}<|start_of_role|>{{ .Role }}<|end_of_role|>{{ .Content }}<|end_of_text|>
+{{ end }}
+{{- end }}<|start_of_role|>assistant<|end_of_role|><think>
+"""
+PARAMETER stop "<|end_of_text|>"
+PARAMETER stop "<|start_of_role|>"
+
 # Localization is a search task: keep it near-deterministic so the same advisory over the same
 # tree yields a stable file ranking (a drifting ranking is unusable as a pipeline stage).
 PARAMETER temperature 0.2
 PARAMETER top_p 0.9
 PARAMETER top_k 20
+
+# The model advertises a 131072 context, and ollama allocates for it: at the default this 1.8B
+# model reserved 13 GB of VRAM — more than gemma4:12b beside it, and enough to break the
+# "runs on M4-24" claim. 32k still holds a large source file plus a tool transcript. Raise it
+# deliberately if you feed whole-repo context, and expect the footprint to follow.
+PARAMETER num_ctx 32768

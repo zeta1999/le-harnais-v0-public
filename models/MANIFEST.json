@@ -368,6 +368,51 @@
       },
       "local_safetensors": "dist/_staging/ft-smoke-jepa",
       "local_gguf": "dist/_gguf/ft-smoke-jepa"
+    },
+    "antares-1b": {
+      "repo_id": "fdtn-ai/antares-1b",
+      "class": "external",
+      "third_party": true,
+      "owner": "Cisco Foundation AI (fdtn-ai)",
+      "license": "Apache-2.0",
+      "visibility": "public",
+      "retrain_only": false,
+      "role": "vulnerability localization: CWE/CVE description -> ranked candidate files, via an agentic grep/find/cat loop",
+      "not_for": "bug discovery, exploitability proof, or generation - see docs/models.md",
+      "base": "n/a (third-party release; we do not train or re-host these)",
+      "dataset": "n/a (upstream)",
+      "metric": "UNVERIFIED BY US. Upstream claims: 500-task Vulnerability Localization Benchmark, beats a dozen larger models. Status stays pending until our own mini-eval runs.",
+      "reproduce": "n/a - fetch upstream weights: ./fetch_models.sh antares-1b",
+      "safetensors": {
+        "model.safetensors": "3.67 GB (sha not pinned - upstream repo)"
+      },
+      "gguf": {
+        "antares-1b-q8_0.gguf": "1.96 GB via mitkox/antares-1b-Q8_0-GGUF (community conversion)"
+      },
+      "gguf_repo_id": "mitkox/antares-1b-Q8_0-GGUF",
+      "local_safetensors": "dist/_staging/antares-1b",
+      "local_gguf": "dist/_gguf/antares-1b"
+    },
+    "antares-350m": {
+      "repo_id": "fdtn-ai/antares-350m",
+      "class": "external",
+      "third_party": true,
+      "owner": "Cisco Foundation AI (fdtn-ai)",
+      "license": "Apache-2.0",
+      "visibility": "public",
+      "retrain_only": false,
+      "role": "vulnerability localization: CWE/CVE description -> ranked candidate files, via an agentic grep/find/cat loop",
+      "not_for": "bug discovery, exploitability proof, or generation - see docs/models.md",
+      "base": "n/a (third-party release; we do not train or re-host these)",
+      "dataset": "n/a (upstream)",
+      "metric": "UNVERIFIED BY US. Upstream claims: 500-task Vulnerability Localization Benchmark, beats a dozen larger models. Status stays pending until our own mini-eval runs.",
+      "reproduce": "n/a - fetch upstream weights: ./fetch_models.sh antares-350m",
+      "safetensors": {
+        "model.safetensors": "0.70 GB (sha not pinned - upstream repo)"
+      },
+      "gguf": {},
+      "local_safetensors": "dist/_staging/antares-350m",
+      "local_gguf": "dist/_gguf/antares-350m"
     }
   }
 }

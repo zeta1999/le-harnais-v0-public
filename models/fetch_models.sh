@@ -41,7 +41,16 @@ for a in "$@"; do
 done
 
 for name in "${NAMES[@]}"; do
-  repo=$("$PY" -c "import json;print(json.load(open('$MANIFEST'))['models']['$name']['repo_id'])")
+  # Most models keep safetensors and GGUF in one repo. Third-party entries (class: external)
+  # may not — e.g. Antares ships upstream safetensors but its GGUF is a community conversion
+  # in a different repo. `gguf_repo_id`, when present, wins for --gguf only.
+  repo=$("$PY" - "$MANIFEST" "$name" "$PATTERN" <<'PY'
+import json,sys
+mf, name, pattern = sys.argv[1], sys.argv[2], sys.argv[3]
+e = json.load(open(mf))["models"][name]
+print(e["gguf_repo_id"] if pattern == "*.gguf" and e.get("gguf_repo_id") else e["repo_id"])
+PY
+)
   echo "== fetching $name from $repo (pattern: $PATTERN) =="
   "$PY" - "$repo" "$name" "$PATTERN" <<'PY'
 import sys

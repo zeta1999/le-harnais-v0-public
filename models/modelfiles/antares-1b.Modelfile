@@ -1,0 +1,12 @@
+# Cisco Foundation AI — Antares-1B (Apache-2.0), vulnerability localization.
+# THIRD-PARTY weights: not ours, not re-hosted. Fetch first, then `ollama create`:
+#   ./fetch_models.sh antares-1b --gguf     (or: huggingface-cli download mitkox/antares-1b-Q8_0-GGUF)
+#   ollama create antares-1b -f modelfiles/antares-1b.Modelfile
+# The model explores a repo agentically via grep/find/cat and returns RANKED CANDIDATE FILES
+# for a given CWE/CVE. It does not prove exploitability — see docs/models.md.
+FROM ./antares-1b/antares-1b-q8_0.gguf
+# Localization is a search task: keep it near-deterministic so the same advisory over the same
+# tree yields a stable file ranking (a drifting ranking is unusable as a pipeline stage).
+PARAMETER temperature 0.2
+PARAMETER top_p 0.9
+PARAMETER top_k 20

@@ -24,6 +24,8 @@ on which machine, and is it worth the trouble" reference.*
 | `ornith:9b` | 5.6 GB (MIT) | ollama | ✅ | ✅ | ✅ | ✅ | coding generator | ✅ |
 | `ornith:35b` | 21 GB (MIT) | ollama | ✅ | ✅ | — | — | coding generator | ✅ |
 | `north-mini-code-1.0:q4_K_M` | 18 GB (Apache-2.0) | ollama | ✅ | ✅ | — | — | coding gen (tool-call conforming) | ✅ |
+| **Antares-1B** (Cisco Foundation AI) | 1.96 GB Q8_0 GGUF / 3.67 GB bf16 (Apache-2.0) | ollama (GGUF) | ✅ | ✅ | ✅ | ✅ | **vuln localization** (CWE/CVE → candidate files) | 🧪 pending mini-eval |
+| **Antares-350M** (Cisco Foundation AI) | 0.70 GB bf16 (Apache-2.0) — no published GGUF | ollama (convert first) | ✅ | ✅ | ✅ | ✅ | vuln localization, smallest lane | 🧪 pending mini-eval |
 | `ft-ornith-scaffold-3b` (ours) | ~6 GB | ollama/candle | ✅ | ✅ | ✅ | ✅ | scaffold-structured coding | ✅ |
 | nomic-embed / jepa | small | lh-serve/ollama | ✅ | ✅ | ✅ | ✅ | embeddings (memory recall) | ✅ |
 | **Qwen3.5-9B-DeepSeek-V4-Flash** (distill) | 9.5 GB Q8_0 (**dense**) | ollama | ✅ | ✅ | ✅ | ✅ | **Mac-lane** solver | ✅ solid (8/14; qwen better overall) |
@@ -119,6 +121,53 @@ and now the recommended small solver. (Caveat: tiny single-seed set; promote to 
 
 **V4-Pro** (1.6T / 49B-act) is **not runnable** on any target here (4-bit ≈ 800 GB+). Ignore.
 
+## Antares — the vuln-localization lane (new model class, 2026-07-21)
+
+Cisco Foundation AI released **Antares** as open-weight (Apache-2.0) task specialists:
+**350M** and **1B** now, **3B** announced. This is a class we did not previously have in the
+registry: not a generator, not a judge — a *localizer*.
+
+**What the task actually is.** Input = a CWE id + generic weakness description, or a CVE/GHSA
+advisory. The model then **explores the repo agentically through a terminal** (`grep`, `find`,
+`cat`), iterating like a human investigator — search, read candidates, fold in evidence,
+backtrack when a path dies. Output = a **ranked list of source files** likely to contain the
+weakness, plus the exploration trace.
+
+**What it is not.** It does **not** discover unknown bugs, and it emits no proof of
+exploitability. Cisco is explicit that it supplements rather than replaces dependency analysis,
+secret scanning, DAST, and expert review. So it slots *before* our verification lenses, never
+in place of them.
+
+**Why it belongs here.** It is the first model in the registry whose native interface is the
+same shell-tool loop `lh` already drives, at a size that runs on every tier including M4-24.
+The obvious wiring is the SCA→SAST gap in `tools/appsec`: `trivy` reports "dependency X has
+CVE-NNNN" and the trail stops; Antares turns that advisory into candidate files, which the
+existing `reach` oracle can then test for entry→sink reachability under clingo. That gives an
+advisory-driven, *solver-checked* answer to "do we actually reach the vulnerable path" — which
+neither a scanner nor a model produces alone.
+
+**Run it:**
+```sh
+cd dist/models
+./fetch_models.sh antares-1b --gguf          # → ./antares-1b/antares-1b-q8_0.gguf (1.96 GB)
+ollama create antares-1b -f modelfiles/antares-1b.Modelfile
+lh model chat --model antares-1b ...
+```
+Upstream weights are `fdtn-ai/antares-1b` (3.67 GB bf16) and `fdtn-ai/antares-350m` (0.70 GB
+bf16), both Apache-2.0. The Q8_0 GGUF is a **community** conversion (`mitkox/antares-1b-Q8_0-GGUF`)
+— convert from the upstream safetensors yourself if that provenance matters. **There is no
+published GGUF for the 350M**; it needs its own conversion before ollama can load it.
+
+Note the sizes: the "1B" is 3.67 GB in bf16, i.e. closer to ~1.8B parameters once embeddings are
+counted. Still trivially resident on every tier, but it is not a 1 GB model.
+
+**Gate before promotion.** Status stays 🧪 until it clears a mini-eval *we* run. The published
+numbers — 500-task Vulnerability Localization Benchmark, "outperforms a dozen larger models" —
+are Cisco's own, on Cisco's own benchmark, with no independent replication yet. `security-toolkit`
+already has labeled corpora (`test_sources/*/EXPECTED.md`) and a `bench` command that scores
+recall and false positives; that is the cheapest honest check and should run before any routing
+change depends on this model.
+
 ## Rules of thumb
 - **Never hold two big models at once.** The qwen3.6 judge (~75 GB) can't co-reside with a
   VRAM-resident V4-Flash or a 35B generator — unload one first (OOM risk on the 96 GB card).
@@ -126,7 +175,14 @@ and now the recommended small solver. (Caveat: tiny single-seed set; promote to 
   fits a Mac; a distill is the evolutionary offshoot that shrank to fit.
 - **Big/MoE → ollama or llama.cpp, never candle.** Portability lives in `lh-llm`; candle stays bf16
   + CUDA/Metal for the small-model native path.
+- **A task specialist beats a bigger generalist only on its task.** Antares localizes; it does
+  not reason about exploitability. Don't route a verification lens to it because it's cheap.
+- **Third-party weights stay third-party.** Antares is fetched from the upstream HF repo, not
+  re-hosted under `renaudb1999/le-harnais-*` — see `class: external` in `models/MANIFEST.json`.
 
 Sources: [unsloth/DeepSeek-V4-Flash-GGUF](https://huggingface.co/unsloth/DeepSeek-V4-Flash-GGUF) ·
 [Jackrong/Qwen3.5-9B-DeepSeek-V4-Flash-GGUF](https://huggingface.co/Jackrong/Qwen3.5-9B-DeepSeek-V4-Flash-GGUF) ·
-[JustVugg/colibri](https://github.com/JustVugg/colibri)
+[JustVugg/colibri](https://github.com/JustVugg/colibri) ·
+[fdtn-ai/antares](https://huggingface.co/collections/fdtn-ai/antares) ·
+[Antares announcement](https://blogs.cisco.com/ai/introducing-antares-the-most-efficient-open-weight-ai-models-for-vulnerability-localization) ·
+[Antares technical report](https://cisco-foundation-ai.github.io/antares/technical-report.pdf)

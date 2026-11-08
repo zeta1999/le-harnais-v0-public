@@ -133,7 +133,26 @@ max_rounds = 4
 lh --profile my-solver.toml --model my-model solve lean "For all a b : Nat, a + b = b + a."
 ```
 
-## 10. Environment doctor
+## 10. Five-role team — `lh team-solve`
+
+One process runs plan, two ideators, solve, check, review, repair, judge, and
+verify. Each role is a fresh context of the same model. `--solo` is one
+context, then `bash check.sh`.
+
+```sh
+export LH_NUM_CTX=32768
+lh team-solve --worktree "$DIR" --id run1 - <<'EOF'
+Implement the task. Do not edit check.sh. The check command is `bash check.sh`.
+EOF
+```
+
+`$DIR` must already be a git checkout with one commit. A GGUF that advertises
+a 262k window needs `LH_NUM_CTX=32768`. Goose and Claude Code load
+`.claude/skills/team-solve/SKILL.md` from this bundle and follow that command
+instead of writing the solution themselves. The contract is `docs/team-solve.md`.
+The runnable example is `examples/cookbook/09-team-solve`.
+
+## 11. Environment doctor
 
 ```sh
 lh doctor          # which logic backends are compiled in + available, and what's missing

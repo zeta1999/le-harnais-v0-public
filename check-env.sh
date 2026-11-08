@@ -11,7 +11,7 @@
 #
 # Tiers:
 #   REQUIRED  — the core `lh` agent loop + generation (rust to build, ollama to generate)
-#   LOGIC     — logic backends that SHELL OUT (z3/clingo/lean); sql+prolog are bundled
+#   LOGIC     — logic backends that SHELL OUT (z3/clingo/lean/scryer-prolog); only sql is bundled
 #   TOOLS     — optional bundled tools (aria quantum, lift lean-lift, appsec security)
 set -uo pipefail
 
@@ -43,8 +43,13 @@ else
   add REQUIRED ollama MISSING "-" "$H"; MISS_REQ=$((MISS_REQ+1))
 fi
 
-# ---- LOGIC backends (shell-out; sql+prolog are bundled in the binary) --------
-for pair in "z3:z3" "clingo:clingo" "lean:lean (lake)"; do
+# ---- LOGIC backends -----------------------------------------------------------
+# Only sql travels inside the binary (rusqlite `bundled`). scryer-prolog is a Rust program but
+# lh SHELLS OUT to it (lh-logic/src/native.rs:130), so it is a runtime PATH dep exactly like
+# z3/clingo/lean. This script used to report "sql, prolog … bundled in lh", which told users
+# prolog was ready on a machine where `lh doctor` says NOT FOUND (observed on macOS/arm64,
+# 2026-09-19). Probe it like the others.
+for pair in "z3:z3" "clingo:clingo" "lean:lean (lake)" "scryer-prolog:prolog (scryer)"; do
   bin="${pair%%:*}"; label="${pair##*:}"
   if have "$bin"; then add LOGIC "$label" present "$($bin --version 2>/dev/null | head -1)" ""
   else
@@ -52,11 +57,12 @@ for pair in "z3:z3" "clingo:clingo" "lean:lean (lake)"; do
       z3)    h="$PKG z3";;
       clingo) h="$PKG clingo   (or: pipx install clingo / conda install -c conda-forge clingo)";;
       lean)  h="https://leanprover-community.github.io/get_started.html  (elan/lake)";;
+      scryer-prolog) h="cargo install scryer-prolog   (or place the binary on PATH)";;
     esac
     add LOGIC "$label" absent "-" "$h"
   fi
 done
-add LOGIC "sql, prolog" present "bundled in lh (pure Rust)" ""
+add LOGIC "sql" present "bundled in lh (rusqlite, pure Rust)" ""
 
 # ---- TOOLS (optional, bundled in dist/tools) ---------------------------------
 # fields: bin : dist/tools/<dir> : human label

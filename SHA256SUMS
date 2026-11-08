@@ -25,7 +25,7 @@ d61d09a5284ef28e5a294c13da10c05c94143e5e7db82053c31a4997c28a3bad  ./examples/coo
 7edc71bd08530167427d342b577b9b21a9f04e94f49f744ee47a0f6628154741  ./examples/cookbook/07-counsel-proverbs/run.sh
 7c01afa29a5c8fcbce64f08b4de4f7db4dbc925d9c84f3c5d69dc106e1282065  ./examples/cookbook/08-cascade-route/README.md
 fcc94ef07db2a77496bf606c6f6a3c00eeedad0993d8b11ece8d77324e815d99  ./examples/cookbook/08-cascade-route/run.sh
-19c1b880d74d15451499e3864913e3b1a69ea04dd9de25ece1a6a8c147f9fb4d  ./examples/cookbook/README.md
+ad4ed8d860972d415d56c67e474879b1375abc9865e7fd8c153727c3eae78dee  ./examples/cookbook/README.md
 e473f2893d7f8b827952cf99681015131a7e4ec557b80062dd5b4bfdaf33dca1  ./examples/run_smoke.sh
 2e669cf7cd196699d50907361e39d322920f175f517473757f5d0797bd073d7f  ./models/fetch_models.sh
 22b0bd841168e1689b892d25c031c3b1c1aeebdabe54da02d203ba9b63fb8f22  ./models/modelfiles/ft-agentworld-1b.Modelfile
@@ -47,8 +47,16 @@ a65546a655c95f900a3055a590b981fec965ede015589fdcd70bcecaf02befb7  ./models/model
 dd2b7b5cffd4fba6882a7953eed142c3c70a82eb9eff4c57e62bfcbad865090b  ./models/modelfiles/ft-smoke-jepa.Modelfile
 40ef5e1a60e18e8ddcface3d76c788dcad83d2004708bc4b1945b87c3fd0dcf2  ./models/modelfiles/ft-smoke-regular.Modelfile
 38d85a76873323be46ca5775588b2749ef816087e24610aa53e3f7fd48eb2318  ./models/upload_to_hf.py
-954bff4bb8b3b51290521bb1342b852cc600a2191b71506db1a4f0bf2b36afc1  ./README.md
+b37f76f7b18338127fe62a4ccbe9a032a2ffaa6bb35d9944e958e3cbc8229ff6  ./README.md
 f755e42d3f6addb1f20b9bbee7eb99081ee24391b01fc15683a3c24d808d065d  ./tools/aria/aria-linux-x86_64
 1f607b0d8cb4c19a1b79a585d9728ef8cd6a722a4fd2c5dcb7da78203e41bd08  ./tools/aria/aria-macos-arm64
 8e8f4ccc18db4e9d58083be891ba553dd35230a84e5e4dfd0721926925eaffb2  ./tools/leanlift/lift-linux-x86_64
 66a28b1d9d953d8e404e568c576937c4ba7dcfa7a2f4031b2785378c99f4587f  ./tools/leanlift/lift-macos-arm64
+dd4311245f55c7d632f7ebb6d0c0b4d10b196b81a3061f0cb6995e2165c35f8a  ./docs/team-solve.md
+d437b013f251bafbebd8a9a47ed98bba08a920bcc16f913d241b1d387db34bbc  ./.claude/skills/team-solve/SKILL.md
+f00edda48dcb5ad7864683f36f0e2cfe33569935b9e6075501a23b1cfd0b9316  ./examples/cookbook/09-team-solve/README.md
+721965362167a33439979f3216ee880203000bdf7508adb3e81f5bd1717ba0af  ./examples/cookbook/09-team-solve/run.sh
+c20833291e289b3f59de9c84d609e6ef7876f3b4c09e76377f61a2afaa208293  ./examples/cookbook/09-team-solve/prompt.txt
+594ec724be7e22b3c126b4ba61b390484b459ac4ffce2f81ae90fd131590a151  ./examples/cookbook/09-team-solve/expected.txt
+d40a5c3ad8c4225982be9ee38cc91686adf810298c565b5ed5b0d230a24fc76f  ./examples/cookbook/09-team-solve/project/ranges.py
+7355e0d4843ae89523e062c0920cd3692bed1002d7de0f5d242f0cc218c8e4d6  ./examples/cookbook/09-team-solve/project/check.sh

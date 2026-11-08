@@ -1,0 +1,5 @@
+check passed
+repair skipped
+judge ran
+verify passed
+dir <worktree>/.lh/runs/team-solve-<id>

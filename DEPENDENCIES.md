@@ -35,7 +35,7 @@ lh solve prolog "<task>" --model hf.co/Jackrong/Qwen3.5-9B-DeepSeek-V4-Flash-GGU
 |---|---|---|
 | agent loop, memory, recipes, RAG, KB, MCP | — (in the `lh` binary) | ✅ pure Rust |
 | logic: `sql` | — | ✅ bundled sqlite (pure Rust) |
-| logic: `prolog` | — | ✅ bundled scryer (pure Rust) |
+| logic: `prolog` | `scryer-prolog` on PATH | shells out (not inside the `lh` binary) |
 | logic: `z3` | `z3` | shells out |
 | logic: `clingo` | `clingo` | shells out |
 | logic: `lean` | `lean` + `lake` (elan toolchain) | shells out |

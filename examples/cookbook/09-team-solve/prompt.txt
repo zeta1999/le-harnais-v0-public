@@ -1,0 +1,4 @@
+Implement merge(intervals) in ranges.py. intervals is a list of closed
+[lo, hi] integer ranges. Return the merged ranges, sorted by start, joining
+two ranges when they overlap or when they touch (hi + 1 == next lo). Do not
+edit check.sh. The check command is `bash check.sh`.

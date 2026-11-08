@@ -13,6 +13,7 @@ because none of these cross-compile cleanly (Rust→Darwin, Go+CGO/DuckDB).
 | **leanlift** (`lift`) | Rust binary | `leanlift/lift-linux-x86_64` (1.2M) | `leanlift/SKILL.md` (C++/Go/Solidity → Lean) | Lean 4 toolchain (elan/lake) on PATH |
 | **security-toolkit** (`appsec`) | Go binary | `appsec/appsec-linux-x86_64` (57M) | `appsec/skills/{scan-repo,scan-running-app,triage}.md` | Docker + scanner images pinned in `appsec/tools.lock` |
 | **lean4-skills** | skill pack (no binary) | — | `lean4-skills/{commands,agents,skills}/*.md` (56 files) | a Lean 4 toolchain + the upstream Python engine (see below) |
+| **team-solve** | skill (no binary) | — | `../.claude/skills/team-solve/SKILL.md` | `lh` on PATH or `bin/lh-*`; ollama |
 
 ## Using them
 

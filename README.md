@@ -38,7 +38,8 @@
 | [`tools/`](tools/) | companion **binaries** + skills: `aria` (quantum), `lift` (leanlift), `appsec` (security), `lean4-skills` |
 | [`models/`](models/) | `MANIFEST.json` + `fetch_models.sh` — weights live in per-model Hugging Face repos |
 | [`datasets/`](datasets/) | versioned, checksummed backup of the training/eval datasets |
-| [`docs/`](docs/) | `CLI-TUTORIAL.md` (hands-on `lh` command tour) · `models.md` (recommended local models + eval log) · `REPRODUCE.md` (exact train+eval per model) · `PROVENANCE.md` (lineage/license) |
+| [`docs/`](docs/) | `CLI-TUTORIAL.md` (hands-on `lh` command tour) · `team-solve.md` (five-role recipe) · `models.md` · `REPRODUCE.md` · `PROVENANCE.md` |
+| [`.claude/skills/team-solve/`](.claude/skills/team-solve/SKILL.md) | skill Goose and Claude Code load for the five-role recipe |
 | **`check-env.sh` · `install-ollama.sh`** | environment doctor + generation-backend installer |
 | **`BINARIES.md` · `DEPENDENCIES.md`** | per-target binary checklist + the full dependency map |
 
@@ -52,6 +53,28 @@
 
 Generation is delegated to **ollama** (recommended) or any OpenAI-compatible endpoint;
 `lh-serve` (candle) is the optional native server. `lh` itself is torch/CUDA-free.
+
+## Five-role team
+
+Start Goose or Claude Code in this directory and both load
+[`.claude/skills/team-solve/SKILL.md`](.claude/skills/team-solve/SKILL.md).
+Asked for the 5× recipe, that session runs `lh team-solve` and leaves the
+implementation to that process. The worktree must already be a git checkout
+with one commit. Set `LH_NUM_CTX=32768` for a GGUF that advertises a 262k
+window. The prompt names the check in backticks (`` `bash check.sh` ``).
+`--solo` is the one-context recipe.
+
+```sh
+export LH_NUM_CTX=32768
+./bin/lh-linux-x86_64 team-solve --worktree "$DIR" --id run1 - <<'EOF'
+Implement the task. Do not edit check.sh. The check command is `bash check.sh`.
+EOF
+```
+
+Use `./bin/lh-linux-arm64` on arm64 Linux and `./bin/lh-macos-arm64` on a Mac.
+The contract is [`docs/team-solve.md`](docs/team-solve.md). A runnable
+interval-merge example is
+[`examples/cookbook/09-team-solve`](examples/cookbook/09-team-solve).
 
 ## Verify integrity
 

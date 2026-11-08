@@ -21,9 +21,9 @@ from security-toolkit `585147d` (linux here, macOS by the Mac agent).
 ## SHA-256 (first 16 hex) of what's bundled here
 
 ```
-lh-linux-x86_64              256b82d6a290f4a4   (13M, @1e53401 — lean_run_code tool + Lean4.31 diag parser + strict-template alternation fix, rebuilt 2026-07-25)
-lh-linux-arm64               a2f1d0a283b342ec   (16M, @1e53401 — lean_run_code tool + Lean4.31 diag parser + strict-template alternation fix, rebuilt 2026-07-25)
-lh-serve-linux-x86_64-cuda   3270dcbb06b7a389   (19M, @d5cdcc5 — sm_120, rebuilt 2026-07-19)
+lh-linux-x86_64              16f1267943d35e4b   (15M, @e103eb8 — rebuilt 2026-11-08 on akilles)
+lh-linux-arm64               7063fd1f9f5519e7   (13M, @e103eb8 — cross-built 2026-11-08 on akilles)
+lh-serve-linux-x86_64-cuda   d9681a6f7692e68b   (20M, @e103eb8 — sm_120, rebuilt 2026-11-08 on akilles)
 lh-macos-arm64               7ddb24cb9ce167b1   (11M, @56b9e5b — Apple M4/M5, R1-R8 eval fixes; BEHIND linux: lacks the 2026-07-25 lean_run_code/parser/alternation fixes — needs a Mac rebuild via build-macos.sh)
 lh-serve-macos-arm64-metal   d68c7277b438c960   (9.1M, @ce3cd80 — Metal backend)
 aria-linux-x86_64            f755e42d3f6addb1   (1.2M)
